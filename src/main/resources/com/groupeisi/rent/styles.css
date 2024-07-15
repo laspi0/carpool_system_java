@@ -1,0 +1,56 @@
+.root {
+    -fx-font-family: 'Arial', sans-serif;
+    -fx-background-color: linear-gradient(to bottom, #e0e0e0, #ffffff);
+}
+
+.label {
+    -fx-font-size: 28px;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+}
+
+.text-field, .password-field, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 10px;
+    -fx-padding: 12px;
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+    -fx-max-width: 400px;  /* Set maximum width for input fields */
+    -fx-pref-width: 100%;  /* Ensure it takes full available width */
+}
+
+.text-field:focused, .password-field:focused, .combo-box:focused {
+    -fx-border-color: #4CAF50;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #4CAF50, #388E3C);
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 18px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
+    -fx-max-width: 400px;  /* Set maximum width for the button */
+    -fx-pref-width: 100%;  /* Ensure it takes full available width */
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #45A049, #2E7D32);
+}
+
+.button:pressed {
+    -fx-background-color: #2E7D32;
+}
+
+.main-container {
+    -fx-padding: 40px;
+    -fx-spacing: 15px;
+    -fx-background-color: white;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 25, 0, 0, 10);
+    -fx-alignment: center;  /* Center the content horizontally */
+}
