@@ -2,24 +2,22 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<?import java.net.URL?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.groupeisi.rent.controllers.user.AdminDashboardController"
-      spacing="10" alignment="CENTER">
+<BorderPane xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.groupeisi.rent.controllers.user.AdminDashboardController"
+            stylesheets="@styles.css">
 
-    <stylesheets>
-        <URL value="@styles.css" />
-    </stylesheets>
-    <padding>
-        <Insets top="40" right="40" bottom="40" left="40"/>
-    </padding>
+    <left>
+        <VBox fx:id="menuBox" styleClass="aside">
+            <Label text="Admin Panel" styleClass="menu-title"/>
+        </VBox>
+    </left>
 
-    <Label text="Dashboard Administrateur" styleClass="title"/>
-
-    <!-- Contenu du dashboard administrateur -->
-
-    <Button text="Se déconnecter" onAction="#handleLogout" styleClass="logout-button"/>
-</VBox>
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area">
+            <Label text="Bienvenue dans le panneau d'administration" styleClass="welcome-text"/>
+        </StackPane>
+    </center>
+</BorderPane>
