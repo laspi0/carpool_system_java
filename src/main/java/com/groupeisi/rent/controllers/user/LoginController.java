@@ -1,10 +1,13 @@
 package com.groupeisi.rent.controllers.user;
 
-import com.groupeisi.rent.Config.ViewUtils;
 import com.groupeisi.rent.entities.User;
 import com.groupeisi.rent.DAO.UserDAO;
+import com.groupeisi.rent.Config.ViewUtils;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginController {
@@ -28,12 +31,6 @@ public class LoginController {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        // Vérifiez si les champs ne sont pas vides
-        if (email.isEmpty() || password.isEmpty()) {
-            showAlert("Erreur", "Veuillez remplir tous les champs.");
-            return;
-        }
-
         // Vérifiez les informations de connexion
         UserDAO userDAO = new UserDAO();
         User user = userDAO.findByEmail(email);
@@ -42,15 +39,23 @@ public class LoginController {
             showAlert("Erreur", "Email ou mot de passe incorrect.");
         } else {
             showAlert("Succès", "Connexion réussie.");
+
+            Stage currentStage = (Stage) emailField.getScene().getWindow();
+            loadDashboard(user.getRole(), currentStage);
+
             clearFields();
-            // Rediriger vers une autre vue après la connexion réussie si nécessaire
         }
     }
 
-    private void goToRegisterPage() {
-        Stage currentStage = (Stage) registerLink.getScene().getWindow();
-        // Remplacez "path_to_register.fxml" par le chemin réel vers votre fichier FXML de la page d'inscription
-        ViewUtils.switchToView("/com/groupeisi/rent/user/register.fxml", currentStage);
+    private void loadDashboard(String role, Stage currentStage) {
+        String fxmlPath = "";
+        if (role.equals("Admin")) {
+            fxmlPath = "/com/groupeisi/rent/user/adminDashboard.fxml";
+        } else {
+            fxmlPath = "/com/groupeisi/rent/user/userDashboard.fxml";
+        }
+
+        ViewUtils.switchToView(fxmlPath, currentStage);
     }
 
     private void showAlert(String title, String content) {
@@ -64,5 +69,12 @@ public class LoginController {
     private void clearFields() {
         emailField.clear();
         passwordField.clear();
+    }
+
+    private void goToRegisterPage() {
+        Stage currentStage = (Stage) registerLink.getScene().getWindow();
+        String fxmlPath = "/com/groupeisi/rent/user/register.fxml";
+
+        ViewUtils.switchToView(fxmlPath, currentStage);
     }
 }

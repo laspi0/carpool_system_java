@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.groupeisi.rent.controllers.user.UserDashboardController"
+      spacing="10" alignment="CENTER">
+
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <Label text="Dashboard Utilisateur" styleClass="title"/>
+
+    <!-- Contenu du dashboard utilisateur -->
+
+    <Button text="Se déconnecter" onAction="#handleLogout" styleClass="logout-button"/>
+</VBox>
