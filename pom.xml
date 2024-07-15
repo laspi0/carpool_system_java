@@ -47,6 +47,18 @@
             <artifactId>javafx-controls</artifactId>
             <version>17.0.1</version> <!-- Ou votre version de JavaFX -->
         </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>5.7.3</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
