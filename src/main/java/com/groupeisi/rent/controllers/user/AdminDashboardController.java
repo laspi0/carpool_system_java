@@ -21,6 +21,7 @@ public class AdminDashboardController {
     @FXML
     public void initialize() {
         addButtonToMenu("Tableau de bord", "fas-tachometer-alt", this::handleDashboard);
+        addButtonToMenu("Ajouter un véhicule", "fas-car", this::handleAddVehicle); // Bouton pour ajouter un véhicule
         addButtonToMenu("Gérer les utilisateurs", "fas-users", this::handleManageUsers);
         addButtonToMenu("Gérer les propriétés", "fas-home", this::handleManageProperties);
         addButtonToMenu("Se déconnecter", "fas-sign-out-alt", this::handleLogout);
@@ -55,6 +56,11 @@ public class AdminDashboardController {
     @FXML
     private void handleLogout() {
         ViewUtils.switchToView("/com/groupeisi/rent/user/login.fxml", (Stage) menuBox.getScene().getWindow());
+    }
+
+    @FXML
+    private void handleAddVehicle() {
+        loadView("/com/groupeisi/rent/vehicle/Add_vehicle.fxml"); // Charger la vue pour ajouter un véhicule
     }
 
     @FXML

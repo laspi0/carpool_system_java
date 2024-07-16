@@ -12,8 +12,8 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/groupeisi/rent/user/adminDashboard.fxml"));
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/groupeisi/rent/user/add_vehicle.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/groupeisi/rent/user/adminDashboard.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/groupeisi/rent/user/add_vehicle.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         // Get the screen bounds and set the stage size accordingly
