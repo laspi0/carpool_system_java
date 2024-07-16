@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.groupeisi.rent.controllers.trip.TripController" spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+    <GridPane hgap="10" vgap="10">
+        <TextField fx:id="departureCityField" promptText="Departure City" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="arrivalCityField" promptText="Arrival City" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <DatePicker fx:id="departureDatePicker" promptText="Departure Date" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="availableSeatsField" promptText="Available Seats" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <TextField fx:id="priceField" promptText="Price" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="vehicleComboBox" promptText="Select Vehicle" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Add" onAction="#addTrip"/>
+        <Button text="Update" onAction="#updateTrip"/>
+        <Button text="Delete" onAction="#deleteTrip"/>
+    </HBox>
+
+    <TableView fx:id="tripTableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="departureCityColumn" text="Departure City"/>
+            <TableColumn fx:id="arrivalCityColumn" text="Arrival City"/>
+            <TableColumn fx:id="departureDateColumn" text="Departure Date"/>
+            <TableColumn fx:id="availableSeatsColumn" text="Available Seats"/>
+            <TableColumn fx:id="priceColumn" text="Price"/>
+            <TableColumn fx:id="vehicleColumn" text="Vehicle"/>
+        </columns>
+    </TableView>
+</VBox>
