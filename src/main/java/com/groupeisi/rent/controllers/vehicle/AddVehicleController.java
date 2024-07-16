@@ -6,10 +6,15 @@ import com.groupeisi.rent.entities.User;
 import com.groupeisi.rent.entities.Vehicle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.fxml.Initializable;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -30,12 +35,36 @@ public class AddVehicleController implements Initializable {
     @FXML
     private ComboBox<User> driverComboBox;
 
+    @FXML
+    private TableView<Vehicle> vehicleTableView;
+
+    @FXML
+    private TableColumn<Vehicle, String> brandColumn;
+
+    @FXML
+    private TableColumn<Vehicle, String> modelColumn;
+
+    @FXML
+    private TableColumn<Vehicle, String> registrationColumn;
+
+    @FXML
+    private TableColumn<Vehicle, User> driverColumn;
+
     private final VehicleDAO vehicleDAO = new VehicleDAO();
     private final UserDAO userDAO = new UserDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        initializeTableView();
         loadDrivers();
+        loadVehicles(); // Charge les véhicules au démarrage
+    }
+
+    private void initializeTableView() {
+        brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
+        modelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
+        registrationColumn.setCellValueFactory(new PropertyValueFactory<>("registration"));
+        driverColumn.setCellValueFactory(new PropertyValueFactory<>("driver"));
     }
 
     private void loadDrivers() {
@@ -71,6 +100,10 @@ public class AddVehicleController implements Initializable {
         });
     }
 
+    private void loadVehicles() {
+        List<Vehicle> vehicles = vehicleDAO.getAllVehicles();
+        vehicleTableView.setItems(FXCollections.observableArrayList(vehicles));
+    }
 
     @FXML
     private void addVehicle() {
@@ -94,6 +127,7 @@ public class AddVehicleController implements Initializable {
 
         showAlert(Alert.AlertType.INFORMATION, "Succès", "Le véhicule a été ajouté avec succès.");
         clearFields();
+        loadVehicles(); // Recharge les véhicules après ajout
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
@@ -110,5 +144,4 @@ public class AddVehicleController implements Initializable {
         registrationField.clear();
         driverComboBox.getSelectionModel().clearSelection();
     }
-
 }

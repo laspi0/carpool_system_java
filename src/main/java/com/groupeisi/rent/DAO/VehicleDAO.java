@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 public class VehicleDAO {
     private final SessionFactory sessionFactory;
 
@@ -25,6 +27,15 @@ public class VehicleDAO {
             }
             throw new RuntimeException("Failed to save vehicle", e);
         }
+    }
+
+    public List<Vehicle> getAllVehicles() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Vehicle", Vehicle.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // Other methods...
