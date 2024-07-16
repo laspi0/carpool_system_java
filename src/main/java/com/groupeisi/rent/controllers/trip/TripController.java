@@ -11,11 +11,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Arrays;
+import java.util.logging.Logger;
 
 public class TripController {
+    private static final Logger LOGGER = Logger.getLogger(TripController.class.getName());
 
-    @FXML private TextField departureCityField;
-    @FXML private TextField arrivalCityField;
+    @FXML private ComboBox<String> departureCityComboBox;
+    @FXML private ComboBox<String> arrivalCityComboBox;
     @FXML private DatePicker departureDatePicker;
     @FXML private TextField availableSeatsField;
     @FXML private TextField priceField;
@@ -27,17 +31,31 @@ public class TripController {
     @FXML private TableColumn<Trip, Integer> availableSeatsColumn;
     @FXML private TableColumn<Trip, Double> priceColumn;
     @FXML private TableColumn<Trip, String> vehicleColumn;
+    @FXML private Button addButton;
+    @FXML private Button updateButton;
+    @FXML private Button deleteButton;
 
     private final TripDAO tripDAO = new TripDAO();
     private final VehicleDAO vehicleDAO = new VehicleDAO();
 
     @FXML
     public void initialize() {
+        LOGGER.info("Initializing TripController");
         initializeTableView();
         loadVehicles();
+        initializeCityComboBoxes();
+
+        // Disable the add button when a trip is selected for update
+        tripTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                addButton.setDisable(true);
+                populateFieldsForUpdate(newSelection);
+            }
+        });
     }
 
     private void initializeTableView() {
+        LOGGER.info("Initializing TableView");
         departureCityColumn.setCellValueFactory(new PropertyValueFactory<>("departureCity"));
         arrivalCityColumn.setCellValueFactory(new PropertyValueFactory<>("arrivalCity"));
         departureDateColumn.setCellValueFactory(new PropertyValueFactory<>("departureDate"));
@@ -49,7 +67,10 @@ public class TripController {
     }
 
     private void loadVehicles() {
-        vehicleComboBox.setItems(FXCollections.observableArrayList(vehicleDAO.getAllVehicles()));
+        LOGGER.info("Loading vehicles");
+        List<Vehicle> vehicles = vehicleDAO.getAllVehicles();
+        LOGGER.info("Loaded " + vehicles.size() + " vehicles");
+        vehicleComboBox.setItems(FXCollections.observableArrayList(vehicles));
         vehicleComboBox.setConverter(new StringConverter<Vehicle>() {
             @Override
             public String toString(Vehicle vehicle) {
@@ -63,24 +84,40 @@ public class TripController {
         });
     }
 
+    private void initializeCityComboBoxes() {
+        List<String> senegalCities = Arrays.asList(
+                "Dakar", "Thiès", "Rufisque", "Kaolack", "Saint-Louis", "Ziguinchor", "Touba", "Diourbel",
+                "Louga", "Tambacounda", "Kolda", "Mbour", "Richard Toll", "Fatick", "Kaffrine", "Kédougou"
+        );
+        departureCityComboBox.setItems(FXCollections.observableArrayList(senegalCities));
+        arrivalCityComboBox.setItems(FXCollections.observableArrayList(senegalCities));
+    }
+
     @FXML
     private void addTrip() {
+        LOGGER.info("Adding new trip");
         if (validateInput()) {
             Trip newTrip = createTripFromInput();
-            tripDAO.save(newTrip);
-            clearFields();
-            refreshTableView();
+            if (newTrip != null) {
+                tripDAO.save(newTrip);
+                LOGGER.info("New trip added successfully");
+                clearFields();
+                refreshTableView();
+            }
         }
     }
 
     @FXML
     private void updateTrip() {
+        LOGGER.info("Updating trip");
         Trip selectedTrip = tripTableView.getSelectionModel().getSelectedItem();
         if (selectedTrip != null && validateInput()) {
             updateTripFromInput(selectedTrip);
             tripDAO.update(selectedTrip);
+            LOGGER.info("Trip updated successfully");
             clearFields();
             refreshTableView();
+            addButton.setDisable(false); // Re-enable the add button after update
         } else {
             showAlert(Alert.AlertType.WARNING, "Select a trip", "Please select a trip to update.");
         }
@@ -88,19 +125,22 @@ public class TripController {
 
     @FXML
     private void deleteTrip() {
+        LOGGER.info("Deleting trip");
         Trip selectedTrip = tripTableView.getSelectionModel().getSelectedItem();
         if (selectedTrip != null) {
             tripDAO.delete(selectedTrip);
+            LOGGER.info("Trip deleted successfully");
             clearFields();
             refreshTableView();
+            addButton.setDisable(false); // Re-enable the add button after delete
         } else {
             showAlert(Alert.AlertType.WARNING, "Select a trip", "Please select a trip to delete.");
         }
     }
 
     private boolean validateInput() {
-        if (departureCityField.getText().isEmpty() ||
-                arrivalCityField.getText().isEmpty() ||
+        if (departureCityComboBox.getValue() == null ||
+                arrivalCityComboBox.getValue() == null ||
                 departureDatePicker.getValue() == null ||
                 availableSeatsField.getText().isEmpty() ||
                 priceField.getText().isEmpty() ||
@@ -116,14 +156,15 @@ public class TripController {
             int seats = Integer.parseInt(availableSeatsField.getText());
             double price = Double.parseDouble(priceField.getText());
             return new Trip(
-                    departureCityField.getText(),
-                    arrivalCityField.getText(),
+                    departureCityComboBox.getValue(),
+                    arrivalCityComboBox.getValue(),
                     departureDatePicker.getValue(),
                     seats,
                     price,
                     vehicleComboBox.getValue()
             );
         } catch (NumberFormatException e) {
+            LOGGER.warning("Invalid input: " + e.getMessage());
             showAlert(Alert.AlertType.ERROR, "Invalid Input", "Please enter valid numeric values for seats and price.");
             return null;
         }
@@ -131,20 +172,30 @@ public class TripController {
 
     private void updateTripFromInput(Trip trip) {
         try {
-            trip.setDepartureCity(departureCityField.getText());
-            trip.setArrivalCity(arrivalCityField.getText());
+            trip.setDepartureCity(departureCityComboBox.getValue());
+            trip.setArrivalCity(arrivalCityComboBox.getValue());
             trip.setDepartureDate(departureDatePicker.getValue());
             trip.setAvailableSeats(Integer.parseInt(availableSeatsField.getText()));
             trip.setPrice(Double.parseDouble(priceField.getText()));
             trip.setVehicle(vehicleComboBox.getValue());
         } catch (NumberFormatException e) {
+            LOGGER.warning("Invalid input during update: " + e.getMessage());
             showAlert(Alert.AlertType.ERROR, "Invalid Input", "Please enter valid numeric values for seats and price.");
         }
     }
 
+    private void populateFieldsForUpdate(Trip trip) {
+        departureCityComboBox.setValue(trip.getDepartureCity());
+        arrivalCityComboBox.setValue(trip.getArrivalCity());
+        departureDatePicker.setValue(trip.getDepartureDate());
+        availableSeatsField.setText(String.valueOf(trip.getAvailableSeats()));
+        priceField.setText(String.valueOf(trip.getPrice()));
+        vehicleComboBox.setValue(trip.getVehicle());
+    }
+
     private void clearFields() {
-        departureCityField.clear();
-        arrivalCityField.clear();
+        departureCityComboBox.getSelectionModel().clearSelection();
+        arrivalCityComboBox.getSelectionModel().clearSelection();
         departureDatePicker.setValue(null);
         availableSeatsField.clear();
         priceField.clear();
@@ -152,7 +203,10 @@ public class TripController {
     }
 
     private void refreshTableView() {
-        tripTableView.setItems(FXCollections.observableArrayList(tripDAO.getAllTrips()));
+        LOGGER.info("Refreshing TableView");
+        List<Trip> trips = tripDAO.getAllTrips();
+        LOGGER.info("Loaded " + trips.size() + " trips");
+        tripTableView.setItems(FXCollections.observableArrayList(trips));
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {

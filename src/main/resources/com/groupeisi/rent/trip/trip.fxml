@@ -3,30 +3,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.groupeisi.rent.controllers.trip.TripController" spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.groupeisi.rent.controllers.trip.TripController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
     <GridPane hgap="10" vgap="10">
-        <TextField fx:id="departureCityField" promptText="Departure City" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <TextField fx:id="arrivalCityField" promptText="Arrival City" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-        <DatePicker fx:id="departureDatePicker" promptText="Departure Date" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <TextField fx:id="availableSeatsField" promptText="Available Seats" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <TextField fx:id="priceField" promptText="Price" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <ComboBox fx:id="vehicleComboBox" promptText="Select Vehicle" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="departureCityComboBox" promptText="Ville de départ" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ComboBox fx:id="arrivalCityComboBox" promptText="Ville d'arrivée" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <DatePicker fx:id="departureDatePicker" promptText="Date de départ" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="availableSeatsField" promptText="Places disponibles" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <TextField fx:id="priceField" promptText="Prix" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="vehicleComboBox" promptText="Sélectionner un véhicule" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     </GridPane>
 
     <HBox spacing="10" alignment="CENTER">
-        <Button text="Add" onAction="#addTrip"/>
-        <Button text="Update" onAction="#updateTrip"/>
-        <Button text="Delete" onAction="#deleteTrip"/>
+        <Button fx:id="addButton" text="Ajouter" onAction="#addTrip"/>
+        <Button fx:id="updateButton" text="Modifier" onAction="#updateTrip"/>
+        <Button fx:id="deleteButton" text="Supprimer" onAction="#deleteTrip"/>
     </HBox>
 
     <TableView fx:id="tripTableView" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn fx:id="departureCityColumn" text="Departure City"/>
-            <TableColumn fx:id="arrivalCityColumn" text="Arrival City"/>
-            <TableColumn fx:id="departureDateColumn" text="Departure Date"/>
-            <TableColumn fx:id="availableSeatsColumn" text="Available Seats"/>
-            <TableColumn fx:id="priceColumn" text="Price"/>
-            <TableColumn fx:id="vehicleColumn" text="Vehicle"/>
+            <TableColumn fx:id="departureCityColumn" text="Ville de départ"/>
+            <TableColumn fx:id="arrivalCityColumn" text="Ville d'arrivée"/>
+            <TableColumn fx:id="departureDateColumn" text="Date de départ"/>
+            <TableColumn fx:id="availableSeatsColumn" text="Places disponibles"/>
+            <TableColumn fx:id="priceColumn" text="Prix"/>
+            <TableColumn fx:id="vehicleColumn" text="Véhicule"/>
         </columns>
     </TableView>
 </VBox>
