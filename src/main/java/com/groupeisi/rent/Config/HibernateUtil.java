@@ -1,6 +1,5 @@
 package com.groupeisi.rent.Config;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -9,7 +8,9 @@ public class HibernateUtil {
 
     static {
         try {
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+            Configuration configuration = new Configuration();
+            configuration.configure("hibernate.cfg.xml");
+            sessionFactory = configuration.buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
@@ -18,10 +19,5 @@ public class HibernateUtil {
 
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
-    }
-
-    public static void shutdown() {
-        // Close caches and connection pools
-        getSessionFactory().close();
     }
 }

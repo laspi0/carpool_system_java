@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Alert?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupeisi.rent.controllers.vehicle.AddVehicleController">
+    <children>
+        <VBox alignment="CENTER" layoutX="79.0" layoutY="38.0" spacing="10.0">
+            <children>
+                <Label text="Ajouter un véhicule" />
+                <TextField fx:id="brandField" promptText="Marque" />
+                <TextField fx:id="modelField" promptText="Modèle" />
+                <TextField fx:id="registrationField" promptText="Immatriculation" />
+                <ComboBox fx:id="driverComboBox" promptText="Sélectionner un conducteur" />
+                <Button onAction="#addVehicle" text="Ajouter" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

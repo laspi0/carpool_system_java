@@ -23,8 +23,8 @@
 
         <!-- Drop and re-create the database schema on startup -->
         <property name="hibernate.hbm2ddl.auto">update</property>
-
         <!-- Mention annotated class -->
         <mapping class="com.groupeisi.rent.entities.User"/>
+        <mapping class="com.groupeisi.rent.entities.Vehicle"/>
     </session-factory>
 </hibernate-configuration>

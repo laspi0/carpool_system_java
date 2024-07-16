@@ -5,6 +5,7 @@ import com.groupeisi.rent.entities.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.Collections;
 import java.util.List;
 
 public class UserDAO {
@@ -48,6 +49,18 @@ public class UserDAO {
         }
         return null;
     }
+
+    public List<User> findDrivers() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM User WHERE role = :role", User.class)
+                    .setParameter("role", "driver")
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
 
     public User findByEmail(String email) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
