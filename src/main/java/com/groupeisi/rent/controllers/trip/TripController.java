@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
 
 import java.time.LocalDate;
@@ -31,12 +32,16 @@ public class TripController {
     @FXML private TableColumn<Trip, Integer> availableSeatsColumn;
     @FXML private TableColumn<Trip, Double> priceColumn;
     @FXML private TableColumn<Trip, String> vehicleColumn;
+    @FXML private HBox buttonContainer;
     @FXML private Button addButton;
-    @FXML private Button updateButton;
-    @FXML private Button deleteButton;
+
 
     private final TripDAO tripDAO = new TripDAO();
     private final VehicleDAO vehicleDAO = new VehicleDAO();
+    private Label addLabel;
+    private Label editLabel;
+    private Label deleteLabel;
+
 
     @FXML
     public void initialize() {
@@ -44,16 +49,103 @@ public class TripController {
         initializeTableView();
         loadVehicles();
         initializeCityComboBoxes();
+        createButtons();
 
-        // Disable the add button when a trip is selected for update
         tripTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                addButton.setDisable(true);
                 populateFieldsForUpdate(newSelection);
+                addLabel.setDisable(true);
+                editLabel.setDisable(false);
+                deleteLabel.setDisable(false);
+            } else {
+                clearFields();
+                addLabel.setDisable(false);
+                editLabel.setDisable(true);
+                deleteLabel.setDisable(true);
             }
         });
     }
 
+    private void createButtons() {
+        addLabel = new Label("Ajouter");
+        addLabel.setOnMouseClicked(event -> addTrip());
+
+        editLabel = new Label("Modifier");
+        editLabel.setOnMouseClicked(event -> updateTrip());
+        editLabel.setDisable(true);
+
+        deleteLabel = new Label("Supprimer");
+        deleteLabel.setOnMouseClicked(event -> deleteTrip());
+        deleteLabel.setDisable(true);
+
+        buttonContainer.getChildren().addAll(addLabel, editLabel, deleteLabel);
+
+        // Style pour les labels
+        String labelStyle = "-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 15 8 15; -fx-cursor: hand;";
+        String disabledStyle = labelStyle + " -fx-opacity: 0.5;";
+
+        addLabel.setStyle(labelStyle);
+        editLabel.setStyle(disabledStyle);
+        deleteLabel.setStyle(disabledStyle);
+
+        addLabel.disabledProperty().addListener((obs, oldVal, newVal) ->
+                addLabel.setStyle(newVal ? disabledStyle : labelStyle));
+        editLabel.disabledProperty().addListener((obs, oldVal, newVal) ->
+                editLabel.setStyle(newVal ? disabledStyle : labelStyle));
+        deleteLabel.disabledProperty().addListener((obs, oldVal, newVal) ->
+                deleteLabel.setStyle(newVal ? disabledStyle : labelStyle));
+    }
+
+    private void addTrip() {
+        LOGGER.info("Adding new trip");
+        if (validateInput()) {
+            Trip newTrip = createTripFromInput();
+            if (newTrip != null) {
+                tripDAO.save(newTrip);
+                LOGGER.info("New trip added successfully");
+                clearFields();
+                refreshTableView();
+            }
+        }
+    }
+
+    private void updateTrip() {
+        LOGGER.info("Updating trip");
+        Trip selectedTrip = tripTableView.getSelectionModel().getSelectedItem();
+        if (selectedTrip != null && validateInput()) {
+            updateTripFromInput(selectedTrip);
+            tripDAO.update(selectedTrip);
+            LOGGER.info("Trip updated successfully");
+            clearFields();
+            refreshTableView();
+            tripTableView.getSelectionModel().clearSelection();
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Select a trip", "Please select a trip to update.");
+        }
+    }
+
+    private void deleteTrip() {
+        LOGGER.info("Deleting trip");
+        Trip selectedTrip = tripTableView.getSelectionModel().getSelectedItem();
+        if (selectedTrip != null) {
+            tripDAO.delete(selectedTrip);
+            LOGGER.info("Trip deleted successfully");
+            clearFields();
+            refreshTableView();
+            tripTableView.getSelectionModel().clearSelection();
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Select a trip", "Please select a trip to delete.");
+        }
+    }
+
+    private void clearFields() {
+        departureCityComboBox.getSelectionModel().clearSelection();
+        arrivalCityComboBox.getSelectionModel().clearSelection();
+        departureDatePicker.setValue(null);
+        availableSeatsField.clear();
+        priceField.clear();
+        vehicleComboBox.getSelectionModel().clearSelection();
+    }
     private void initializeTableView() {
         LOGGER.info("Initializing TableView");
         departureCityColumn.setCellValueFactory(new PropertyValueFactory<>("departureCity"));
@@ -93,50 +185,11 @@ public class TripController {
         arrivalCityComboBox.setItems(FXCollections.observableArrayList(senegalCities));
     }
 
-    @FXML
-    private void addTrip() {
-        LOGGER.info("Adding new trip");
-        if (validateInput()) {
-            Trip newTrip = createTripFromInput();
-            if (newTrip != null) {
-                tripDAO.save(newTrip);
-                LOGGER.info("New trip added successfully");
-                clearFields();
-                refreshTableView();
-            }
-        }
-    }
 
-    @FXML
-    private void updateTrip() {
-        LOGGER.info("Updating trip");
-        Trip selectedTrip = tripTableView.getSelectionModel().getSelectedItem();
-        if (selectedTrip != null && validateInput()) {
-            updateTripFromInput(selectedTrip);
-            tripDAO.update(selectedTrip);
-            LOGGER.info("Trip updated successfully");
-            clearFields();
-            refreshTableView();
-            addButton.setDisable(false); // Re-enable the add button after update
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Select a trip", "Please select a trip to update.");
-        }
-    }
 
-    @FXML
-    private void deleteTrip() {
-        LOGGER.info("Deleting trip");
-        Trip selectedTrip = tripTableView.getSelectionModel().getSelectedItem();
-        if (selectedTrip != null) {
-            tripDAO.delete(selectedTrip);
-            LOGGER.info("Trip deleted successfully");
-            clearFields();
-            refreshTableView();
-            addButton.setDisable(false); // Re-enable the add button after delete
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Select a trip", "Please select a trip to delete.");
-        }
-    }
+
+
+
 
     private boolean validateInput() {
         if (departureCityComboBox.getValue() == null ||
@@ -193,14 +246,7 @@ public class TripController {
         vehicleComboBox.setValue(trip.getVehicle());
     }
 
-    private void clearFields() {
-        departureCityComboBox.getSelectionModel().clearSelection();
-        arrivalCityComboBox.getSelectionModel().clearSelection();
-        departureDatePicker.setValue(null);
-        availableSeatsField.clear();
-        priceField.clear();
-        vehicleComboBox.getSelectionModel().clearSelection();
-    }
+
 
     private void refreshTableView() {
         LOGGER.info("Refreshing TableView");
