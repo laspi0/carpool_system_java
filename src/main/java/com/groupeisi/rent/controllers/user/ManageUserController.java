@@ -59,7 +59,7 @@ public class ManageUserController {
     }
 
     private void setupRoleComboBox() {
-        roleComboBox.setItems(FXCollections.observableArrayList("ADMIN", "USER", "DRIVER"));
+        roleComboBox.setItems(FXCollections.observableArrayList( "USER", "DRIVER"));
     }
 
     private void createButtons() {

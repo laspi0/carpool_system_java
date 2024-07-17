@@ -4,37 +4,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="20" alignment="CENTER" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupeisi.rent.controllers.user.ManageUserController">
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupeisi.rent.controllers.user.ManageUserController">
+    <children>
+        <VBox spacing="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20">
+            <Label text="Gestion des Utilisateurs" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
 
-    <Label text="Gestion des Utilisateurs" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+            <HBox spacing="20">
+                <VBox fx:id="inputVBox" spacing="10" minWidth="250">
+                    <TextField fx:id="firstNameField" promptText="Prénom" />
+                    <TextField fx:id="lastNameField" promptText="Nom" />
+                    <TextField fx:id="emailField" promptText="Email" />
+                    <ComboBox fx:id="roleComboBox" promptText="Rôle" maxWidth="Infinity"/>
 
-    <HBox spacing="20">
-        <VBox spacing="10" minWidth="250">
-            <VBox fx:id="inputVBox" spacing="10">
-                <TextField fx:id="firstNameField" promptText="Prénom" />
-                <TextField fx:id="lastNameField" promptText="Nom" />
-                <TextField fx:id="emailField" promptText="Email" />
-                <ComboBox fx:id="roleComboBox" promptText="Rôle" maxWidth="Infinity"/>
-            </VBox>
+                    <HBox fx:id="buttonContainer" spacing="10" alignment="CENTER_LEFT">
+                        <!-- Les boutons seront ajoutés dynamiquement dans le contrôleur -->
+                    </HBox>
+                </VBox>
 
-            <HBox fx:id="buttonContainer" spacing="10" alignment="CENTER_LEFT">
-                <!-- Les boutons seront ajoutés dynamiquement dans le contrôleur -->
+                <TableView fx:id="userTableView" HBox.hgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="firstNameColumn" text="Prénom" minWidth="100"/>
+                        <TableColumn fx:id="lastNameColumn" text="Nom" minWidth="100"/>
+                        <TableColumn fx:id="emailColumn" text="Email" minWidth="150"/>
+                        <TableColumn fx:id="roleColumn" text="Rôle" minWidth="100"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
             </HBox>
         </VBox>
-
-        <TableView fx:id="userTableView" HBox.hgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="firstNameColumn" text="Prénom" minWidth="100"/>
-                <TableColumn fx:id="lastNameColumn" text="Nom" minWidth="100"/>
-                <TableColumn fx:id="emailColumn" text="Email" minWidth="150"/>
-                <TableColumn fx:id="roleColumn" text="Rôle" minWidth="100"/>
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-            </columnResizePolicy>
-        </TableView>
-    </HBox>
-</VBox>
+    </children>
+</AnchorPane>
