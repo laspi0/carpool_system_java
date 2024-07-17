@@ -98,8 +98,10 @@ public class Trip {
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
-    @Override
-    public String toString() {
-        return "Voyage de " + departureCity + " à " + arrivalCity + " le " + departureDate ;
-    }
+
+@Override
+public String toString() {
+    return "Voyage de " + departureCity + " à " + arrivalCity + " le " + departureDate + " avec " + availableSeats +
+            " sièges disponibles au prix de " + price + " FCFA. Véhicule: " + vehicle.getModel();
+}
 }

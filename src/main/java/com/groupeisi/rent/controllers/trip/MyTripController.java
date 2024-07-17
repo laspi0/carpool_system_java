@@ -6,6 +6,7 @@ import com.groupeisi.rent.DAO.TripDAO;
 import com.groupeisi.rent.entities.Reservation;
 import com.groupeisi.rent.entities.Trip;
 import com.groupeisi.rent.entities.User;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class MyTripController {
     @FXML
@@ -28,6 +30,8 @@ public class MyTripController {
     @FXML
     private TableColumn<Trip, Double> priceColumn;
     @FXML
+    private TableColumn<Trip, String> vehicleModelColumn;
+    @FXML
     private TableColumn<Trip, Void> actionColumn;
 
     private TripDAO tripDAO = new TripDAO();
@@ -41,20 +45,34 @@ public class MyTripController {
         addButtonToTable();
     }
 
-    public void setLoggedInUser(User user) {
-        System.out.println("Logged in user set in MyTripController: " + (user != null ? user.getEmail() : "null"));
-    }
-
     private void setupTableColumns() {
         departureCityColumn.setCellValueFactory(new PropertyValueFactory<>("departureCity"));
         arrivalCityColumn.setCellValueFactory(new PropertyValueFactory<>("arrivalCity"));
         departureDateColumn.setCellValueFactory(new PropertyValueFactory<>("departureDate"));
         availableSeatsColumn.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        // Utilisation d'une lambda expression pour accéder au modèle du véhicule
+        vehicleModelColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getVehicle() != null ?
+                        cellData.getValue().getVehicle().getModel() : "N/A"));
     }
 
     private void refreshTripTable() {
-        tripTable.setItems(FXCollections.observableArrayList(tripDAO.getAllTrips()));
+        List<Trip> trips = tripDAO.getAllTrips();
+        if (trips != null) {
+            for (Trip trip : trips) {
+                System.out.println("Trip: " + trip.getId() +
+                        ", Departure: " + trip.getDepartureCity() +
+                        ", Arrival: " + trip.getArrivalCity() +
+                        ", Date: " + trip.getDepartureDate() +
+                        ", Vehicle: " + (trip.getVehicle() != null ? trip.getVehicle().getModel() : "N/A"));
+            }
+            tripTable.setItems(FXCollections.observableArrayList(trips));
+        } else {
+            System.out.println("No trips retrieved");
+            tripTable.setItems(FXCollections.observableArrayList());
+        }
     }
 
     private void addButtonToTable() {
@@ -112,13 +130,15 @@ public class MyTripController {
         }
     }
 
-
-
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public void setLoggedInUser(User user) {
+        System.out.println("Logged in user set in MyTripController: " + (user != null ? user.getEmail() : "null"));
     }
 }

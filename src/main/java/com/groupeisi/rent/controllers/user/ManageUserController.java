@@ -84,14 +84,12 @@ public class ManageUserController {
 
     private void handleAddUser() {
         System.out.println("Ajouter un utilisateur");
-        // Implémentez la logique pour ajouter un utilisateur ici
     }
 
     private void handleEditUser() {
         User selectedUser = userTableView.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             System.out.println("Modifier l'utilisateur : " + selectedUser.getFirstName());
-            // Implémentez la logique pour modifier un utilisateur ici
         } else {
             showAlert("Aucun utilisateur sélectionné", "Veuillez sélectionner un utilisateur à modifier.");
         }
@@ -109,7 +107,7 @@ public class ManageUserController {
                 boolean deleted = userDAO.deleteUser(selectedUser);
                 if (deleted) {
                     showAlert("Suppression réussie", "L'utilisateur a été supprimé avec succès.");
-                    loadUsers(); // Reload the table
+                    loadUsers();
                 } else {
                     showAlert("Erreur de suppression", "Une erreur est survenue lors de la suppression de l'utilisateur.");
                 }

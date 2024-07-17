@@ -73,5 +73,4 @@ public class UserDAO {
         return null;
     }
 
-    // Autres méthodes CRUD (update, delete, findById, etc.)
 }

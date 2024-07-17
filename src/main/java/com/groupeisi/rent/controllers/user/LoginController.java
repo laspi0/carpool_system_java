@@ -52,7 +52,7 @@ public class LoginController {
         String fxmlPath = "";
         if (role.equals("Admin")) {
             fxmlPath = "/com/groupeisi/rent/user/adminDashboard.fxml";
-        } else {
+        } else if (role.equals("Passenger")){
             fxmlPath = "/com/groupeisi/rent/user/userDashboard.fxml";
         }
 

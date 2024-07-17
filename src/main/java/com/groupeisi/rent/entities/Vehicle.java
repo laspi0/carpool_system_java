@@ -24,8 +24,6 @@ public class Vehicle {
     @JoinColumn(name = "user_id", nullable = false)
     private User driver;
 
-    // Constructeurs, getters et setters
-    // ...
 
     public Vehicle() {
     }

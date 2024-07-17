@@ -21,13 +21,11 @@ public class AdminDashboardController {
     @FXML
     public void initialize() {
         addButtonToMenu("Tableau de bord", "fas-tachometer-alt", this::handleDashboard);
-        addButtonToMenu("Ajouter un véhicule", "fas-car", this::handleAddVehicle);
-        addButtonToMenu("Gérer les trajets", "fas-route", this::handleManageTrips); // Nouveau bouton pour gérer les trajets
+        addButtonToMenu("Géstion des véhicule", "fas-car", this::handleAddVehicle);
+        addButtonToMenu("Gérer les trajets", "fas-route", this::handleManageTrips);
         addButtonToMenu("Gérer les utilisateurs", "fas-users", this::handleManageUsers);
-        addButtonToMenu("Gérer les propriétés", "fas-home", this::handleManageProperties);
         addButtonToMenu("Se déconnecter", "fas-sign-out-alt", this::handleLogout);
 
-        // Afficher le tableau de bord par défaut
         handleDashboard();
     }
 
@@ -51,7 +49,7 @@ public class AdminDashboardController {
 
     @FXML
     private void handleDashboard() {
-        loadView("/com/groupeisi/rent/user/dashboard.fxml");
+        loadView("/com/groupeisi/rent/user/userMenu.fxml");
     }
 
     @FXML
@@ -66,7 +64,7 @@ public class AdminDashboardController {
 
     @FXML
     private void handleManageTrips() {
-        loadView("/com/groupeisi/rent/trip/trip.fxml"); // Charger la vue pour gérer les trajets
+        loadView("/com/groupeisi/rent/trip/trip.fxml");
     }
 
     @FXML
@@ -74,8 +72,4 @@ public class AdminDashboardController {
         loadView("/com/groupeisi/rent/user/manageUsers.fxml");
     }
 
-    @FXML
-    private void handleManageProperties() {
-        loadView("/com/groupeisi/rent/user/manageProperties.fxml");
-    }
 }

@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.groupeisi.rent.controllers.TestController"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label text="Gestion des reservation" styleClass="title"/>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.groupeisi.rent.controllers.reservation.UserReservationsController"
+      spacing="10" alignment="CENTER">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
 
-</AnchorPane>
+    <Label text="Mes Réservations" styleClass="title"/>
+
+    <TableView fx:id="reservationTable" VBox.vgrow="ALWAYS">
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+        <columns>
+            <TableColumn fx:id="departureCityColumn" text="Ville de Départ"/>
+            <TableColumn fx:id="arrivalCityColumn" text="Ville d'Arrivée"/>
+            <TableColumn fx:id="vehicleModelColumn" text="Modèle de Véhicule"/>
+            <TableColumn fx:id="departureDateColumn" text="Date de Départ"/>
+            <TableColumn fx:id="priceColumn" text="Prix"/>
+            <TableColumn fx:id="actionColumn" text="Action"/>
+        </columns>
+    </TableView>
+</VBox>

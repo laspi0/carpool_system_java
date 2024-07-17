@@ -26,7 +26,6 @@ public class UserDashboardController {
         System.out.println("menuBox: " + (menuBox != null ? "not null" : "null"));
         System.out.println("contentArea: " + (contentArea != null ? "not null" : "null"));
 
-        // Utilisation de Platform.runLater pour s'assurer que l'interface utilisateur est complètement chargée
         Platform.runLater(() -> {
             System.out.println("Setting up menu");
             setupMenu();
@@ -40,7 +39,6 @@ public class UserDashboardController {
             addButtonToMenu("Voir les trajets", "fas-route", this::handleViewTrips);
             addButtonToMenu("Se déconnecter", "fas-sign-out-alt", this::handleLogout);
 
-            // Afficher le tableau de bord par défaut
             handleDashboard();
         } else {
             System.err.println("menuBox is null in setupMenu method");
@@ -53,7 +51,6 @@ public class UserDashboardController {
             button.getStyleClass().add("menu-button");
             button.setGraphic(new FontIcon(icon));
             button.setOnAction(event -> {
-                System.out.println("Button clicked: " + text); // Log pour le débogage
                 action.run();
             });
             menuBox.getChildren().add(button);
@@ -63,19 +60,16 @@ public class UserDashboardController {
     }
 
     private void loadView(String fxmlPath) {
-        System.out.println("Loading view: " + fxmlPath); // Log pour le débogage
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             if (contentArea != null) {
                 contentArea.getChildren().clear();
                 Parent view = loader.load();
                 contentArea.getChildren().add(view);
-                System.out.println("View loaded successfully"); // Log pour le débogage
             } else {
                 System.err.println("contentArea is null in loadView method");
             }
         } catch (IOException e) {
-            System.err.println("Error loading view: " + fxmlPath); // Log pour le débogage
             e.printStackTrace();
         }
     }

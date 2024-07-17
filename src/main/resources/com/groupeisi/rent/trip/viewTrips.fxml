@@ -28,6 +28,7 @@
             <TableColumn fx:id="departureDateColumn" text="Date de Départ" prefWidth="100"/>
             <TableColumn fx:id="availableSeatsColumn" text="Sièges Disponibles" prefWidth="100"/>
             <TableColumn fx:id="priceColumn" text="Prix" prefWidth="100"/>
+            <TableColumn fx:id="vehicleModelColumn" text="Modèle de Véhicule" prefWidth="100"/> <!-- Nouvelle colonne -->
             <TableColumn fx:id="actionColumn" text="Action" prefWidth="100"/>
         </columns>
     </TableView>

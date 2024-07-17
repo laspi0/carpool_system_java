@@ -28,7 +28,6 @@ public class RegisterController {
     private ComboBox<String> roleComboBox;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialisation du contrôleur FXML
     }
 
     @FXML
@@ -39,26 +38,22 @@ public class RegisterController {
         String password = passwordField.getText();
         String role = roleComboBox.getValue();
 
-        // Vérifier si les champs ne sont pas vides
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || role == null) {
             showAlert("Erreur", "Veuillez remplir tous les champs.");
             return;
         }
 
-        // Créer un utilisateur et l'enregistrer dans la base de données
         User user = new User(firstName, lastName, email, password, role);
         UserDAO userDAO = new UserDAO();
         userDAO.save(user);
 
         showAlert("Succès", "Inscription réussie.");
         clearFields();
-        // Vous pouvez rediriger vers une autre vue après l'inscription si nécessaire
     }
 
     @FXML
     private void goToLoginPage() {
         Stage currentStage = (Stage) firstNameField.getScene().getWindow();
-        // Remplacez "path_to_login.fxml" par le chemin réel vers votre fichier FXML de la page de connexion
         ViewUtils.switchToView("/com/groupeisi/rent/user/login.fxml", currentStage);
     }
 

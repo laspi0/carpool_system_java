@@ -1,27 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<!--<?import javafx.scene.layout.*?>-->
+<!--<?import java.net.URL?>-->
+<!--<?import javafx.geometry.Insets?>-->
+<!--<?import javafx.scene.control.Label?>-->
+<!--<?import eu.hansolo.tilesfx.TilePane?>-->
+<!--<VBox xmlns="http://javafx.com/javafx"-->
+<!--      xmlns:fx="http://javafx.com/fxml"-->
+<!--      fx:controller="com.groupeisi.rent.controllers.ChartController"-->
+<!--      spacing="10" alignment="CENTER">-->
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.groupeisi.rent.controllers.user.UserDashboardController"
-      spacing="10" alignment="CENTER">
+<!--    <stylesheets>-->
+<!--        <URL value="@styles.css" />-->
+<!--    </stylesheets>-->
+<!--    <padding>-->
+<!--        <Insets top="40" right="40" bottom="40" left="40"/>-->
+<!--    </padding>-->
 
-    <stylesheets>
-        <URL value="@styles.css" />
-    </stylesheets>
-    <padding>
-        <Insets top="40" right="40" bottom="40" left="40"/>
-    </padding>
+<!--    <Label text="Dashboard" styleClass="title"/>-->
 
-    <Label text="Dashboard" styleClass="title"/>
+<!--    <Pane fx:id="tilePane"/>-->
 
-    <!-- Contenu de la gestion des propriétés -->
-
-</VBox>
+<!--</VBox>-->

@@ -186,11 +186,6 @@ public class TripController {
     }
 
 
-
-
-
-
-
     private boolean validateInput() {
         if (departureCityComboBox.getValue() == null ||
                 arrivalCityComboBox.getValue() == null ||
