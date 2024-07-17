@@ -1,8 +1,10 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
 <VBox xmlns="http://javafx.com/javafx"
@@ -26,8 +28,10 @@
             <TableColumn fx:id="departureDateColumn" text="Date de Départ" prefWidth="100"/>
             <TableColumn fx:id="availableSeatsColumn" text="Sièges Disponibles" prefWidth="100"/>
             <TableColumn fx:id="priceColumn" text="Prix" prefWidth="100"/>
+            <TableColumn fx:id="actionColumn" text="Action" prefWidth="100"/>
         </columns>
     </TableView>
 
     <HBox fx:id="buttonContainer" spacing="10" alignment="CENTER"/>
+
 </VBox>

@@ -1,5 +1,6 @@
 package com.groupeisi.rent.controllers.user;
 
+import com.groupeisi.rent.Config.SessionManager;
 import com.groupeisi.rent.entities.User;
 import com.groupeisi.rent.DAO.UserDAO;
 import com.groupeisi.rent.Config.ViewUtils;
@@ -31,14 +32,14 @@ public class LoginController {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        // Vérifiez les informations de connexion
         UserDAO userDAO = new UserDAO();
         User user = userDAO.findByEmail(email);
 
         if (user == null || !user.getPassword().equals(password)) {
-            showAlert("Erreur", "Email ou mot de passe incorrect.");
+            showAlert("Error", "Incorrect email or password.");
         } else {
-            showAlert("Succès", "Connexion réussie.");
+            SessionManager.setLoggedInUser(user);
+            showAlert("Success", "Login successful.");
 
             Stage currentStage = (Stage) emailField.getScene().getWindow();
             loadDashboard(user.getRole(), currentStage);

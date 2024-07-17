@@ -27,5 +27,6 @@
         <mapping class="com.groupeisi.rent.entities.User"/>
         <mapping class="com.groupeisi.rent.entities.Vehicle"/>
         <mapping class="com.groupeisi.rent.entities.Trip"/>
+        <mapping class="com.groupeisi.rent.entities.Reservation"/>
     </session-factory>
 </hibernate-configuration>
