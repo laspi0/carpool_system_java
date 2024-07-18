@@ -7,14 +7,14 @@
 <VBox xmlns="http://javafx.com/javafx/16"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.groupeisi.rent.controllers.ChartController"
-      spacing="20" alignment="CENTER">
+      spacing="10" alignment="CENTER">
 
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
 
-    <Label text="Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <Label text="Dashboard" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
-    <VBox fx:id="chartContainer" spacing="20" alignment="CENTER"/>
+    <VBox fx:id="chartContainer" spacing="10" alignment="CENTER"/>
 
 </VBox>

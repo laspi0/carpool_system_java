@@ -1,5 +1,6 @@
 package com.groupeisi.rent.controllers;
 
+import com.groupeisi.rent.Config.SessionManager;
 import com.groupeisi.rent.entities.Reservation;
 import com.groupeisi.rent.entities.User;
 import com.groupeisi.rent.DAO.ReservationDAO;
@@ -27,17 +28,23 @@ public class DashboardController {
     private BarChart<String, Number> averagePriceByCity;
 
     private ReservationDAO reservationDao = new ReservationDAO();
-    private User currentUser; // Assume this is set somewhere, e.g., during login
+    private User currentUser;
 
     @FXML
     public void initialize() {
-        List<Reservation> userReservations = reservationDao.getReservationsByUser(currentUser);
+        currentUser = SessionManager.getLoggedInUser();
+        if (currentUser != null) {
+            List<Reservation> userReservations = reservationDao.getReservationsByUser(currentUser);
 
-        updateTotalReservations(userReservations);
-        updateMostFrequentCities(userReservations);
-        updateReservationsByDepartureCity(userReservations);
-        updateReservationsOverTime(userReservations);
-        updateAveragePriceByCity(userReservations);
+            updateTotalReservations(userReservations);
+            updateMostFrequentCities(userReservations);
+            updateReservationsByDepartureCity(userReservations);
+            updateReservationsOverTime(userReservations);
+            updateAveragePriceByCity(userReservations);
+        } else {
+            // Handle case when no user is logged in
+            // For example, display a message or redirect to login page
+        }
     }
 
     private void updateTotalReservations(List<Reservation> reservations) {

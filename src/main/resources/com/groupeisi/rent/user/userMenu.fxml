@@ -9,41 +9,41 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.groupeisi.rent.controllers.DashboardController"
             prefHeight="600.0" prefWidth="800.0">
-    <VBox spacing="20" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
-        <Label text="Dashboard Utilisateur" styleClass="title" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <VBox spacing="15" alignment="CENTER" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+        <Label text="Dashboard Utilisateur" styleClass="title" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
-        <HBox spacing="20" alignment="CENTER">
+        <HBox spacing="15" alignment="CENTER">
             <VBox alignment="CENTER" styleClass="info-box">
-                <Label text="Nombre total de réservations" styleClass="info-label"/>
-                <Label fx:id="totalReservationsLabel" styleClass="info-value"/>
+                <Label text="Nombre total de réservations" styleClass="info-label" style="-fx-font-size: 12px;"/>
+                <Label fx:id="totalReservationsLabel" styleClass="info-value" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
             </VBox>
             <VBox alignment="CENTER" styleClass="info-box">
-                <Label text="Ville de départ la plus fréquente" styleClass="info-label"/>
-                <Label fx:id="mostFrequentDepartureCityLabel" styleClass="info-value"/>
+                <Label text="Ville de départ la plus fréquente" styleClass="info-label" style="-fx-font-size: 12px;"/>
+                <Label fx:id="mostFrequentDepartureCityLabel" styleClass="info-value" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
             </VBox>
             <VBox alignment="CENTER" styleClass="info-box">
-                <Label text="Ville d'arrivée la plus fréquente" styleClass="info-label"/>
-                <Label fx:id="mostFrequentArrivalCityLabel" styleClass="info-value"/>
+                <Label text="Ville d'arrivée la plus fréquente" styleClass="info-label" style="-fx-font-size: 12px;"/>
+                <Label fx:id="mostFrequentArrivalCityLabel" styleClass="info-value" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
             </VBox>
         </HBox>
 
-        <PieChart fx:id="reservationsByDepartureCity" title="Répartition des réservations par ville de départ"/>
+        <PieChart fx:id="reservationsByDepartureCity" title="Répartition des réservations par ville de départ" style="-fx-font-size: 12px;" legendVisible="false"/>
 
-        <LineChart fx:id="reservationsOverTime" title="Évolution des réservations">
+        <LineChart fx:id="reservationsOverTime" title="Évolution des réservations" style="-fx-font-size: 12px;">
             <xAxis>
-                <CategoryAxis label="Date"/>
+                <CategoryAxis label="Date" style="-fx-font-size: 10px;"/>
             </xAxis>
             <yAxis>
-                <NumberAxis label="Nombre de réservations"/>
+                <NumberAxis label="Nombre de réservations" style="-fx-font-size: 10px;"/>
             </yAxis>
         </LineChart>
 
-        <BarChart fx:id="averagePriceByCity" title="Prix moyen par ville d'arrivée">
+        <BarChart fx:id="averagePriceByCity" title="Prix moyen par ville d'arrivée" style="-fx-font-size: 12px;">
             <xAxis>
-                <CategoryAxis label="Ville d'arrivée"/>
+                <CategoryAxis label="Ville d'arrivée" style="-fx-font-size: 10px;"/>
             </xAxis>
             <yAxis>
-                <NumberAxis label="Prix moyen"/>
+                <NumberAxis label="Prix moyen" style="-fx-font-size: 10px;"/>
             </yAxis>
         </BarChart>
     </VBox>

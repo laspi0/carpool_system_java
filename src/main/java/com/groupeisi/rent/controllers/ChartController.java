@@ -57,7 +57,8 @@ public class ChartController {
         }
 
         barChart.getData().add(series);
-        barChart.setPrefSize(500, 400);
+        barChart.setPrefSize(400, 300);
+        setChartStyle(barChart);
 
         return barChart;
     }
@@ -74,7 +75,8 @@ public class ChartController {
             pieChart.getData().add(new PieChart.Data(entry.getKey(), entry.getValue()));
         }
 
-        pieChart.setPrefSize(500, 400);
+        pieChart.setPrefSize(400, 300);
+        setChartStyle(pieChart);
 
         return pieChart;
     }
@@ -102,7 +104,8 @@ public class ChartController {
         }
 
         lineChart.getData().add(series);
-        lineChart.setPrefSize(500, 400);
+        lineChart.setPrefSize(400, 300);
+        setChartStyle(lineChart);
 
         return lineChart;
     }
@@ -128,8 +131,17 @@ public class ChartController {
         }
 
         barChart.getData().add(series);
-        barChart.setPrefSize(500, 400);
+        barChart.setPrefSize(400, 300);
+        setChartStyle(barChart);
 
         return barChart;
+    }
+
+    private void setChartStyle(Chart chart) {
+        chart.setStyle("-fx-font-size: 10px;");
+        if (chart instanceof XYChart) {
+            ((XYChart) chart).getXAxis().setTickLabelFont(new javafx.scene.text.Font(8));
+            ((XYChart) chart).getYAxis().setTickLabelFont(new javafx.scene.text.Font(8));
+        }
     }
 }
