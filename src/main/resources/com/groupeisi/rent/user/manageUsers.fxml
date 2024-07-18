@@ -15,7 +15,6 @@
                     <TextField fx:id="lastNameField" promptText="Nom" />
                     <TextField fx:id="emailField" promptText="Email" />
                     <ComboBox fx:id="roleComboBox" promptText="Rôle" maxWidth="Infinity"/>
-
                     <HBox fx:id="buttonContainer" spacing="10" alignment="CENTER_LEFT">
                         <!-- Les boutons seront ajoutés dynamiquement dans le contrôleur -->
                     </HBox>

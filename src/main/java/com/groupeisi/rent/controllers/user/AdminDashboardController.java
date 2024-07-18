@@ -49,7 +49,7 @@ public class AdminDashboardController {
 
     @FXML
     private void handleDashboard() {
-        loadView("/com/groupeisi/rent/user/userMenu.fxml");
+        loadView("/com/groupeisi/rent/user/dashboard.fxml");
     }
 
     @FXML

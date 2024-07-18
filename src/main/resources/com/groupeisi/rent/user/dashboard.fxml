@@ -1,24 +1,20 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!--<?import javafx.scene.layout.*?>-->
-<!--<?import java.net.URL?>-->
-<!--<?import javafx.geometry.Insets?>-->
-<!--<?import javafx.scene.control.Label?>-->
-<!--<?import eu.hansolo.tilesfx.TilePane?>-->
-<!--<VBox xmlns="http://javafx.com/javafx"-->
-<!--      xmlns:fx="http://javafx.com/fxml"-->
-<!--      fx:controller="com.groupeisi.rent.controllers.ChartController"-->
-<!--      spacing="10" alignment="CENTER">-->
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
 
-<!--    <stylesheets>-->
-<!--        <URL value="@styles.css" />-->
-<!--    </stylesheets>-->
-<!--    <padding>-->
-<!--        <Insets top="40" right="40" bottom="40" left="40"/>-->
-<!--    </padding>-->
+<VBox xmlns="http://javafx.com/javafx/16"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.groupeisi.rent.controllers.ChartController"
+      spacing="20" alignment="CENTER">
 
-<!--    <Label text="Dashboard" styleClass="title"/>-->
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
 
-<!--    <Pane fx:id="tilePane"/>-->
+    <Label text="Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-<!--</VBox>-->
+    <VBox fx:id="chartContainer" spacing="20" alignment="CENTER"/>
+
+</VBox>
