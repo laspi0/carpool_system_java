@@ -75,7 +75,7 @@ public class UserReservationsController {
     }
 
     private void loadReservations() {
-        List<Reservation> reservations = reservationDAO.getReservationsForUser(SessionManager.getLoggedInUser());
+        List<Reservation> reservations = reservationDAO.getReservationsByUser(SessionManager.getLoggedInUser());
         if (reservations != null) {
             reservationTable.setItems(FXCollections.observableArrayList(reservations));
         } else {

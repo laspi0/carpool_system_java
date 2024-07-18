@@ -6,6 +6,7 @@ import com.groupeisi.rent.entities.Trip;
 import com.groupeisi.rent.entities.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -25,11 +26,14 @@ public class ReservationDAO {
         }
     }
 
-    public List<Reservation> getReservationsForUser(User user) {
+    public List<Reservation> getReservationsByUser(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Reservation r join fetch r.trip t join fetch t.vehicle where r.passenger = :user", Reservation.class)
-                    .setParameter("user", user)
-                    .list();
+            Query<Reservation> query = session.createQuery(
+                    "SELECT r FROM Reservation r JOIN FETCH r.trip t JOIN FETCH t.vehicle WHERE r.passenger = :user",
+                    Reservation.class
+            );
+            query.setParameter("user", user);
+            return query.list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -43,21 +47,22 @@ public class ReservationDAO {
     }
 
     public boolean deleteReservation(Reservation reservation) {
+        Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.delete(reservation);
-                // Mettre à jour le nombre de sièges disponibles dans le voyage
-                Trip trip = reservation.getTrip();
-                trip.setAvailableSeats(trip.getAvailableSeats() + 1);
-                session.update(trip);
-                transaction.commit();
-                return true;
-            } catch (Exception e) {
+            transaction = session.beginTransaction();
+            session.delete(reservation);
+            // Mettre à jour le nombre de sièges disponibles dans le voyage
+            Trip trip = reservation.getTrip();
+            trip.setAvailableSeats(trip.getAvailableSeats() + 1);
+            session.update(trip);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) {
                 transaction.rollback();
-                e.printStackTrace();
-                return false;
             }
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -69,6 +74,29 @@ public class ReservationDAO {
             if (reservation != null) {
                 session.delete(reservation);
             }
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    public Reservation findById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Reservation.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void update(Reservation reservation) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.update(reservation);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

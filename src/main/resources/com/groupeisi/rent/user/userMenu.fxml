@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.groupeisi.rent.controllers.TestController"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label text="Gestion des dash" styleClass="title"/>
+            fx:controller="com.groupeisi.rent.controllers.DashboardController"
+            prefHeight="600.0" prefWidth="800.0">
+    <VBox spacing="20" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        <Label text="Dashboard Utilisateur" styleClass="title" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
+        <HBox spacing="20" alignment="CENTER">
+            <VBox alignment="CENTER" styleClass="info-box">
+                <Label text="Nombre total de réservations" styleClass="info-label"/>
+                <Label fx:id="totalReservationsLabel" styleClass="info-value"/>
+            </VBox>
+            <VBox alignment="CENTER" styleClass="info-box">
+                <Label text="Ville de départ la plus fréquente" styleClass="info-label"/>
+                <Label fx:id="mostFrequentDepartureCityLabel" styleClass="info-value"/>
+            </VBox>
+            <VBox alignment="CENTER" styleClass="info-box">
+                <Label text="Ville d'arrivée la plus fréquente" styleClass="info-label"/>
+                <Label fx:id="mostFrequentArrivalCityLabel" styleClass="info-value"/>
+            </VBox>
+        </HBox>
+
+        <PieChart fx:id="reservationsByDepartureCity" title="Répartition des réservations par ville de départ"/>
+
+        <LineChart fx:id="reservationsOverTime" title="Évolution des réservations">
+            <xAxis>
+                <CategoryAxis label="Date"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Nombre de réservations"/>
+            </yAxis>
+        </LineChart>
+
+        <BarChart fx:id="averagePriceByCity" title="Prix moyen par ville d'arrivée">
+            <xAxis>
+                <CategoryAxis label="Ville d'arrivée"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Prix moyen"/>
+            </yAxis>
+        </BarChart>
+    </VBox>
 </AnchorPane>
