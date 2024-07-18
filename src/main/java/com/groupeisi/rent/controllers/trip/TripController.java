@@ -154,7 +154,7 @@ public class TripController {
         availableSeatsColumn.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         vehicleColumn.setCellValueFactory(cellData ->
-                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getVehicle().getRegistration()));
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getVehicle().getModel()));
         refreshTableView();
     }
 
@@ -166,7 +166,7 @@ public class TripController {
         vehicleComboBox.setConverter(new StringConverter<Vehicle>() {
             @Override
             public String toString(Vehicle vehicle) {
-                return vehicle != null ? vehicle.getRegistration() : "";
+                return vehicle != null ? vehicle.getModel() : "";
             }
 
             @Override
